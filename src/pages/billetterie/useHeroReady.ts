@@ -3,7 +3,7 @@ import { whenReady } from "../../lib/when-ready";
 import { HERO_READY_TIMEOUT_MS } from "./motion-presets";
 
 // Same photo as the `bg-hero-photo` utility and the preload in index.html.
-const HERO_PHOTO_URL = "/img/tablier-web.webp";
+const HERO_PHOTO_URL = "/img/tablier-chaise.webp";
 const HERO_FONT_FAMILY = "Nohemi";
 
 export const useHeroReady = (): boolean => {
