@@ -75,7 +75,7 @@
       transparent 58%,
       var(--ground) 100%
     ),
-    url("/img/tablier-web.webp") center 40% / cover;
+    url("/img/tablier-chaise.webp") center 40% / cover;
 }
 
 @utility bg-fond-inox {
