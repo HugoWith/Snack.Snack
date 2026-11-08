@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { ReceiptLeader } from "./ReceiptLeader";
 
 interface StepperProps {
   label: string;
@@ -28,7 +29,7 @@ export function Stepper({
       role="group"
       aria-labelledby={labelId}
       aria-describedby={describedBy}
-      className="flex flex-col gap-1.5"
+      className="flex items-center gap-3"
     >
       <span
         id={labelId}
@@ -36,7 +37,8 @@ export function Stepper({
       >
         {label}
       </span>
-      <div className="flex items-center gap-[14px]">
+      <ReceiptLeader />
+      <div className="flex items-center gap-2">
         <StepButton
           label={decrementLabel}
           isDisabled={value <= min}
@@ -46,7 +48,7 @@ export function Stepper({
         </StepButton>
         <output
           aria-live="polite"
-          className="min-w-[1ch] text-center font-display text-[30px] tracking-[-0.05em] text-ticket-value"
+          className="min-w-[1ch] text-center font-display text-[30px] tracking-[-0.05em] text-ticket-value tabular-nums"
         >
           {value}
         </output>
