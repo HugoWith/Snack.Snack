@@ -1,0 +1,49 @@
+/* Snack Snack — Silk · design tokens (source : design system "Snack Snack — Silk") */
+
+@font-face { font-family: "Nohemi"; src: url("../public/fonts/Nohemi-ExtraBold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../public/fonts/Satoshi-Bold.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+@font-face { font-family: "Satoshi"; src: url("../public/fonts/Satoshi-Black.woff2") format("woff2"); font-weight: 800 900; font-display: swap; }
+
+:root {
+  /* Couleurs */
+  --ground: #0b0c0b;        /* fond de page */
+  --ink: #000000;           /* texte sur moutarde */
+  --steel-900: #161718;
+  --steel-800: #232426;
+  --steel-600: #6a6b6f;     /* bordures uniquement (3.7:1) */
+  --steel-400: #8c8d91;     /* aide, mentions (5.9:1) */
+  --label: #bab7b7;         /* kickers gris (9.8:1) */
+  --text: #f2f0ec;
+  --mustard: #ffbd00;       /* LA couleur (11.7:1 sur ground) */
+  --mustard-press: #e0a600;
+  --sauce: #c9781a;
+  --paper: #e9e4da;         /* bon de commande / billet */
+  --paper-shade: #a39a93;
+  --ticket-ink: #5e5560;    /* intitulés imprimés du bon (5.6:1 sur paper) */
+  --ticket-value: #1d1b22;  /* valeurs tamponnées sur le bon */
+  --tape: #2f7bd6;
+  --alert: #ff6b4a;
+  --seat-taken: #3b3c3f;    /* places prises */
+
+  /* Typo */
+  --font-display: "Nohemi", "Inter Tight", "Arial Black", sans-serif;
+  --font-text: "Satoshi", "Manrope", system-ui, sans-serif;
+
+  /* Espacements */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-6: 24px; --space-8: 32px; --space-12: 48px; --space-16: 64px;
+
+  /* Rayons : la DA est tranchée */
+  --radius-0: 0;
+
+  /* Ombres */
+  --shadow-paper: 0 24px 48px rgba(0, 0, 0, 0.6);
+  --shadow-hard: 6px 6px 0 #000000; /* bouton seulement, jamais sur le logo */
+}
+
+/* Styles de texte */
+.kicker    { font: 900 13px/1.2 var(--font-text); text-transform: uppercase; color: var(--label); letter-spacing: -0.01em; }
+.statement { font: 800 26px/1 var(--font-display); text-transform: uppercase; letter-spacing: -0.055em; color: var(--mustard); }
+.display   { font: 800 48px/0.85 var(--font-display); letter-spacing: -0.06em; }
+.ticket-k  { font: 700 11px/1.1 var(--font-text); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ticket-ink); }
+.ticket-v  { font: 800 22px/1 var(--font-display); letter-spacing: -0.05em; text-transform: uppercase; color: var(--ticket-value); }

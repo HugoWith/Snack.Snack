@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Billet Snack Snack</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800&amp;family=Manrope:wght@500;700;800&amp;display=swap">
+<style>
+@font-face{font-family:"Nohemi";src:url(../../public/fonts/Nohemi-ExtraBold.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(../../public/fonts/Satoshi-Bold.woff2) format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(../../public/fonts/Satoshi-Black.woff2) format("woff2");font-weight:800 900;font-display:swap}
+body{margin:0;background:#0b0c0b}
+.fond{background:radial-gradient(ellipse at 50% 50%, rgba(11,12,11,0.1) 20%, rgba(11,12,11,0.85) 80%), #0b0c0b url(../../public/img/fond-inox.jpg) center/cover}
+</style>
+</helmet>
+<div class="fond" style="width: 390px; height: 693px; position: relative; overflow: hidden; color: #f2f0ec; font-family: 'Satoshi', 'Manrope', system-ui, sans-serif; box-sizing: border-box; padding: 36px 32px 32px; display: flex; flex-direction: column; justify-content: space-between; align-items: center">
+
+  <div style="font-weight: 900; font-size: 12px; text-transform: uppercase; color: #bab7b7">Dimanche 22 novembre - 12h00</div>
+
+  <article aria-label="Billet Snack Snack numéro 07, Camille Durand, 2 couverts dont 1 végétarien" style="position: relative; width: 100%; box-sizing: border-box; background: #e9e4da; color: #5e5560; padding: 28px 20px 22px; transform: rotate(-2deg); box-shadow: 0 24px 48px rgba(0,0,0,0.7); display: flex; flex-direction: column; gap: 18px">
+    <div aria-hidden="true" style="position: absolute; top: -12px; left: 50%; width: 84px; height: 24px; margin-left: -42px; background: #2f7bd6; opacity: 0.9; transform: rotate(4deg)"></div>
+    <div style="display: flex; justify-content: space-between; align-items: flex-start">
+      <span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Snack Snack<br>Édition #1</span>
+      <span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 30px; line-height: 0.85; letter-spacing: -0.055em; color: #1d1b22">Nº07</span>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 14px; column-gap: 14px">
+      <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Table:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; color: #1d1b22">1</span></div>
+      <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Covers:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; color: #1d1b22">2 (1 VG)</span></div>
+      <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Date:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; color: #1d1b22">22.11 · 12H</span></div>
+      <div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Server:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; color: #1d1b22">Silk</span></div>
+    </div>
+    <div style="border-top: 1.5px solid #5e5560; padding-top: 8px; font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; text-transform: uppercase; color: #1d1b22">Camille Durand</div>
+    <div aria-hidden="true" style="position: absolute; right: 26px; bottom: 54px; width: 24px; height: 20px; border-radius: 50% 60% 45% 55%; background: #c9781a; opacity: 0.5"></div>
+  </article>
+
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 8px">
+    <img src="../../public/img/snack-snack-logo-sm.png" alt="Snack Snack" style="width: 120px; height: auto; display: block">
+    <div style="font-weight: 900; font-size: 12px; text-transform: uppercase; color: #bab7b7">Silk - Marseille</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":693}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+@import "tailwindcss";
+@import "../../design/tokens.css";
+
+@font-face {
+  font-family: "Nohemi";
+  src: url("/fonts/Nohemi-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Black.woff2") format("woff2");
+  font-weight: 800 900;
+  font-display: swap;
+}
+
+@theme inline reference {
+  --color-*: initial;
+  --radius-*: initial;
+
+  --color-ground: var(--ground);
+  --color-ink: var(--ink);
+  --color-steel-900: var(--steel-900);
+  --color-steel-800: var(--steel-800);
+  --color-steel-600: var(--steel-600);
+  --color-steel-400: var(--steel-400);
+  --color-label: var(--label);
+  --color-text: var(--text);
+  --color-mustard: var(--mustard);
+  --color-mustard-press: var(--mustard-press);
+  --color-sauce: var(--sauce);
+  --color-paper: var(--paper);
+  --color-paper-shade: var(--paper-shade);
+  --color-ticket-ink: var(--ticket-ink);
+  --color-ticket-value: var(--ticket-value);
+  --color-tape: var(--tape);
+  --color-alert: var(--alert);
+  --color-seat-taken: var(--seat-taken);
+
+  --font-display: var(--font-display);
+  --font-text: var(--font-text);
+
+  --spacing-1: var(--space-1);
+  --spacing-2: var(--space-2);
+  --spacing-3: var(--space-3);
+  --spacing-4: var(--space-4);
+  --spacing-6: var(--space-6);
+  --spacing-8: var(--space-8);
+  --spacing-12: var(--space-12);
+  --spacing-16: var(--space-16);
+
+  --radius-0: var(--radius-0);
+
+  --shadow-paper: var(--shadow-paper);
+  --shadow-hard: var(--shadow-hard);
+}
+
+@utility bg-hero-photo {
+  background:
+    radial-gradient(
+      ellipse at 50% 45%,
+      transparent 30%,
+      color-mix(in srgb, var(--ground) 60%, transparent) 85%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ground) 75%, transparent) 0%,
+      transparent 16%,
+      transparent 58%,
+      var(--ground) 100%
+    ),
+    url("/img/tablier-chaise.jpg") center 40% / cover;
+}
+
+@utility bg-fond-inox {
+  background:
+    linear-gradient(
+      180deg,
+      var(--ground) 0%,
+      color-mix(in srgb, var(--ground) 75%, transparent) 20%,
+      color-mix(in srgb, var(--ground) 90%, transparent) 70%,
+      var(--ground) 100%
+    ),
+    var(--ground) url("/img/fond-inox.jpg") center top / 180% auto no-repeat;
+}
+
+/* The overlay stops at the square photo's bottom edge (180vw on a phone) so
+   the photo never ends on a visible seam. */
+@utility bg-fond-inox-merci {
+  background:
+    linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--ground) 45%, transparent) 0%,
+        color-mix(in srgb, var(--ground) 20%, transparent) 30%,
+        color-mix(in srgb, var(--ground) 85%, transparent) 65%,
+        var(--ground) 85%
+      )
+      top / 100% min(100%, 180vw) no-repeat,
+    var(--ground) url("/img/fond-inox.jpg") center top / 180% auto no-repeat;
+}
+
+@utility bg-fond-inox-billet {
+  background:
+    radial-gradient(
+      ellipse at 50% 50%,
+      color-mix(in srgb, var(--ground) 10%, transparent) 20%,
+      color-mix(in srgb, var(--ground) 85%, transparent) 80%
+    ),
+    var(--ground) url("/img/fond-inox.jpg") center / cover;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-ground font-text text-text;
+  }
+  ::selection {
+    @apply bg-mustard text-ink;
+  }
+}
