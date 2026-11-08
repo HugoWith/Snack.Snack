@@ -22,6 +22,8 @@ npm run dev                   # netlify dev : front + API sur http://localhost:8
 
 Les ports 5542x évitent une autre stack Supabase qui tourne sur 5432x. Arrête la nôtre avec `npx supabase stop` depuis ce dossier (jamais `--all`).
 
+Le pooler Supavisor local est activé sur 55429, en mode transaction (`[db.pooler]` dans `supabase/config.toml`), comme celui de la prod (port 6543). Il sert à `tests/db/pooler.test.ts` : ce pooler se bloque quand une même connexion envoie plusieurs requêtes à la suite sans attendre les réponses, ce qui mettait l'admin en 502. `createDb` fait donc passer les appels l'un après l'autre. L'app en local continue de parler en direct à 55422. `config.toml` ne règle que le local : ne lance jamais `supabase config push`.
+
 Les emails sont optionnels : sans aucune des trois variables `SMTP_USER`, `SMTP_APP_PASSWORD` et `MAIL_FROM`, l'API démarre et n'envoie rien. C'est le réglage normal en local. N'en mets qu'une ou deux et l'API refuse de démarrer. Ne les écris jamais dans `.env`.
 
 ## Tests
@@ -34,7 +36,7 @@ npm run typecheck
 npm run build
 ```
 
-Les tests SQL **vident la base locale** et refusent de tourner si `DATABASE_URL` ne pointe pas sur `127.0.0.1:55422`.
+Les tests SQL **vident la base locale**. Ils tournent avec `DATABASE_URL` sur `127.0.0.1:55422` et ont besoin du pooler local démarré. Le garde-fou refuse toute autre adresse, sauf le pooler local (`127.0.0.1:55429`), utilisé par `tests/db/pooler.test.ts`.
 
 ## Mise en ligne
 

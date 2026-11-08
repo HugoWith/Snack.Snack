@@ -1,8 +1,9 @@
 import postgres from "postgres";
 
 const LOCAL_HOSTS = ["127.0.0.1", "localhost"];
-const LOCAL_PORT = 55422;
-const EXPECTED = `127.0.0.1:${LOCAL_PORT} (local Supabase, see supabase/config.toml)`;
+// Postgres direct, then the local Supavisor pooler (transaction mode).
+const LOCAL_PORTS = [55422, 55429];
+const EXPECTED = `${LOCAL_PORTS.map((port) => `127.0.0.1:${port}`).join(" or ")} (local Supabase, see supabase/config.toml)`;
 
 // The db tests truncate reservations, and a DATABASE_URL in the shell
 // overrides .env: refuse anything but the local stack.
@@ -24,7 +25,7 @@ const describeTarget = (url: string | undefined): string => {
   if (path) return "points at a Unix socket";
   if (
     host.every((name) => LOCAL_HOSTS.includes(name)) &&
-    port.every((number) => number === LOCAL_PORT)
+    port.every((number) => LOCAL_PORTS.includes(number))
   )
     return "ok";
   return `points at ${host.map((name, index) => `${name}:${port[index] ?? port[0]}`).join(", ")}`;

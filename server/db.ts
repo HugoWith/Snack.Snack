@@ -81,7 +81,7 @@ export type Db = {
   setCapacity: (capacity: number) => Promise<void>;
   claimEmail: (id: string) => Promise<boolean>;
   releaseEmail: (id: string) => Promise<void>;
-  end: () => Promise<void>;
+  end: (options?: { timeout?: number }) => Promise<void>;
 };
 
 // Each seat function runs as its own statement: they take an advisory lock
@@ -96,7 +96,7 @@ export const createDb = (url: string): Db => {
     connect_timeout: 10,
   });
 
-  return {
+  const methods: Omit<Db, "end"> = {
     seatsLeft: async () => {
       await sql`select expire_holds()`;
       const [row] = await sql<{ capacity: number; taken: number }[]>`
@@ -175,10 +175,43 @@ export const createDb = (url: string): Db => {
     releaseEmail: async (id) => {
       await sql`update reservations set email_sent_at = null where id = ${id}`;
     },
+  };
 
-    end: () => sql.end(),
+  // With a single connection, postgres.js pipelines concurrent queries (sends
+  // the next before the previous answers), and Supavisor in transaction mode
+  // (production DATABASE_URL) hangs on that, leaving the pooled server
+  // connection stuck mid-query. Running one method at a time avoids it.
+  return {
+    ...serialize(methods, createQueue()),
+    end: (options) => sql.end(options),
   };
 };
+
+type Queue = <T>(task: () => Promise<T>) => Promise<T>;
+
+// Starts each task once the previous one has settled, whatever its outcome.
+export const createQueue = (): Queue => {
+  let tail: Promise<unknown> = Promise.resolve();
+  return <T>(task: () => Promise<T>): Promise<T> => {
+    const result = tail.then(() => task());
+    tail = result.catch(() => {});
+    return result;
+  };
+};
+
+// No method may call another one: the inner call would wait for the outer.
+const serialize = <
+  M extends Record<string, (...args: never[]) => Promise<unknown>>,
+>(
+  methods: M,
+  queue: Queue,
+): M =>
+  Object.fromEntries(
+    Object.entries(methods).map(([name, method]) => [
+      name,
+      (...args: Parameters<typeof method>) => queue(() => method(...args)),
+    ]),
+  ) as M;
 
 const RAISE_EXCEPTION = "P0001";
 const SEAT_ERROR_CODES: readonly string[] = [
