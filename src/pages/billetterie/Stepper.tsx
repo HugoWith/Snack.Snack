@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { ReceiptLeader } from "./ReceiptLeader";
+import { ReceiptLeader } from "../../components/receipt/ReceiptLeader";
 
 interface StepperProps {
   label: string;

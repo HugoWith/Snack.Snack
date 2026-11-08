@@ -1,8 +1,10 @@
+import { ReceiptFooter } from "../../components/receipt/ReceiptFooter";
+import { RECEIPT_LABEL_CLASSES } from "../../components/receipt/receipt-classes";
+import { ReceiptHeader } from "../../components/receipt/ReceiptHeader";
 import { EVENT } from "../../event";
+import { formatTableLine, streetOf } from "../../lib/format";
 import { ORDER_COPY, type OrderErrors, type OrderInput } from "../../lib/order";
 import { FieldError } from "./FieldError";
-import { ReceiptFooter } from "./ReceiptFooter";
-import { ReceiptHeader } from "./ReceiptHeader";
 import { ReceiptTotal } from "./ReceiptTotal";
 import { Stepper } from "./Stepper";
 
@@ -36,9 +38,16 @@ export function OrderSlip({
   return (
     <div className="-rotate-1 drop-shadow-paper">
       <div className="receipt-edges flex flex-col gap-7 bg-paper px-6 pt-10 pb-9 text-ticket-ink lg:px-10 lg:pt-12 lg:pb-11">
-        <ReceiptHeader />
+        <ReceiptHeader>
+          <p className={RECEIPT_LABEL_CLASSES}>
+            {EVENT.venue.name} · {streetOf(EVENT.venue.address)}
+          </p>
+          <p className={`${RECEIPT_LABEL_CLASSES} tabular-nums`}>
+            {formatTableLine(EVENT.tableNo, EVENT.dateISO)}
+          </p>
+        </ReceiptHeader>
         <label className="flex flex-col gap-1">
-          <span className={LABEL_CLASSES}>Prénom et nom:</span>
+          <span className={RECEIPT_LABEL_CLASSES}>Prénom et nom:</span>
           <input
             name="fullName"
             autoComplete="name"
@@ -53,7 +62,7 @@ export function OrderSlip({
           <FieldError id="fullName-error" message={errors.fullName} />
         </label>
         <label className="flex flex-col gap-1">
-          <span className={LABEL_CLASSES}>Email:</span>
+          <span className={RECEIPT_LABEL_CLASSES}>Email:</span>
           <input
             name="email"
             type="email"
@@ -108,8 +117,6 @@ export function OrderSlip({
     </div>
   );
 }
-
-const LABEL_CLASSES = "text-[11px] font-bold tracking-[0.06em] uppercase";
 
 const INPUT_CLASSES =
   "min-h-11 w-full border-0 border-b-[1.5px] leading-[normal] border-ticket-ink bg-transparent text-ticket-value caret-ticket-value outline-none placeholder:font-medium placeholder:text-paper-shade focus:border-ticket-value focus:shadow-[0_1.5px_0_0_var(--ticket-value)] aria-invalid:border-alert aria-invalid:focus:shadow-[0_1.5px_0_0_var(--alert)] autofill:shadow-[inset_0_0_0_100px_var(--paper)] autofill:[-webkit-text-fill-color:var(--ticket-value)]";

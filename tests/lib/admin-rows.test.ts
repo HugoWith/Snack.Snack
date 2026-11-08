@@ -5,6 +5,7 @@ import {
   canCopyTicketLink,
   cancelConfirmMessage,
   needsRefundReminder,
+  paidRowsCaption,
   ticketUrl,
   visibleRows,
 } from "../../src/lib/admin-rows";
@@ -40,6 +41,19 @@ describe("visibleRows", () => {
       held,
       refund,
     ]);
+  });
+});
+
+describe("paidRowsCaption", () => {
+  it("counts the shown rows against all rows", () => {
+    expect(paidRowsCaption([row({}), row({})], 5)).toBe("Payées : 2 sur 5.");
+  });
+
+  it("adds how many shown rows are still to refund", () => {
+    const refund = row({ status: "cancelled", needsRefund: true });
+    expect(paidRowsCaption([row({}), refund, refund], 4)).toBe(
+      "Payées : 3 sur 4. Dont 2 à rembourser.",
+    );
   });
 });
 

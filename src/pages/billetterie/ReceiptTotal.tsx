@@ -1,7 +1,7 @@
 import { formatEuros } from "../../lib/format";
 import { AmountTicker } from "./AmountTicker";
-import { ReceiptLeader } from "./ReceiptLeader";
-import { ReceiptRule } from "./ReceiptRule";
+import { ReceiptLeader } from "../../components/receipt/ReceiptLeader";
+import { ReceiptRule } from "../../components/receipt/ReceiptRule";
 
 interface ReceiptTotalProps {
   totalCents: number;

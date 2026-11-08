@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { AdminRow } from "../../lib/admin-api";
-import { visibleRows } from "../../lib/admin-rows";
+import { paidRowsCaption, visibleRows } from "../../lib/admin-rows";
 import {
   HEADING_CLASSES,
   NOTICE_CLASSES,
@@ -40,7 +40,7 @@ export function ReservationsTable({
           <p className="text-sm font-bold text-steel-400">
             {showAll
               ? `Tous statuts : ${rows.length}.`
-              : `Payées et à rembourser : ${shown.length} sur ${rows.length}.`}
+              : paidRowsCaption(shown, rows.length)}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
