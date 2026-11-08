@@ -9,6 +9,12 @@ export const visibleRows = (rows: AdminRow[], showAll: boolean): AdminRow[] =>
     ? rows
     : rows.filter((row) => row.status === "paid" || row.needsRefund);
 
+export const paidRowsCaption = (shown: AdminRow[], total: number): string => {
+  const caption = `Payées : ${shown.length} sur ${total}.`;
+  const toRefund = shown.filter((row) => row.needsRefund).length;
+  return toRefund > 0 ? `${caption} Dont ${toRefund} à rembourser.` : caption;
+};
+
 export const needsRefundReminder = (row: AdminRow): boolean =>
   row.source === "online" && row.status === "paid";
 
