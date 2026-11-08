@@ -36,5 +36,14 @@ export const formatTicketDate = (iso: string): string => {
   return `${day}.${month} · ${Number(hour)}H`;
 };
 
+export const formatTableLine = (tableNo: number, iso: string): string =>
+  `Table Nº${tableNo} · ${formatTicketDate(iso)}`;
+
+export const streetOf = (address: string): string =>
+  address.split(",")[0].trim();
+
+export const weekdayOf = (dateLabel: string): string =>
+  dateLabel.trim().split(/\s+/)[0];
+
 export const firstName = (fullName: string): string =>
   fullName.trim().split(/\s+/)[0];

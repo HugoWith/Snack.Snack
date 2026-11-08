@@ -59,6 +59,8 @@
 
   --shadow-paper: var(--shadow-paper);
   --shadow-hard: var(--shadow-hard);
+
+  --drop-shadow-paper: var(--shadow-paper);
 }
 
 @utility bg-hero-photo {
@@ -113,6 +115,17 @@
       color-mix(in srgb, var(--ground) 85%, transparent) 80%
     ),
     var(--ground) url("/img/fond-inox.jpg") center / cover;
+}
+
+/* A mask also clips box-shadow, so torn paper takes drop-shadow-paper on a
+   wrapper instead of shadow-paper. Teeth are --tooth wide, half as deep. */
+@utility receipt-edges {
+  --tooth: 16px;
+  mask:
+    conic-gradient(from -45deg at bottom, transparent, black 1deg 89deg, transparent 90deg)
+      bottom / var(--tooth) 51% repeat-x,
+    conic-gradient(from 135deg at top, transparent, black 1deg 89deg, transparent 90deg)
+      top / var(--tooth) 51% repeat-x;
 }
 
 @layer base {

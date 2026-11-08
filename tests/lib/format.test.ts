@@ -4,10 +4,13 @@ import {
   formatCovers,
   formatEuros,
   formatSeatsLeft,
+  formatTableLine,
   formatTicketDate,
   seatsLeftCopy,
   formatTicketNo,
+  streetOf,
   ticketFileName,
+  weekdayOf,
 } from "../../src/lib/format";
 
 describe("formatEuros", () => {
@@ -83,6 +86,30 @@ describe("formatTicketDate", () => {
   it("reads day, month and hour from the event's local time", () => {
     expect(formatTicketDate("2026-11-22T12:00:00+01:00")).toBe("22.11 · 12H");
     expect(formatTicketDate("2026-03-05T09:30:00+01:00")).toBe("05.03 · 9H");
+  });
+});
+
+describe("formatTableLine", () => {
+  it("prints the table number then the event's local date and hour", () => {
+    expect(formatTableLine(1, "2026-11-22T12:00:00+01:00")).toBe(
+      "Table Nº1 · 22.11 · 12H",
+    );
+    expect(formatTableLine(12, "2026-03-05T09:30:00+01:00")).toBe(
+      "Table Nº12 · 05.03 · 9H",
+    );
+  });
+});
+
+describe("streetOf", () => {
+  it("keeps the street part of a postal address", () => {
+    expect(streetOf("54 Rue Vacon, 13001 Marseille")).toBe("54 Rue Vacon");
+    expect(streetOf("12 Quai du Port")).toBe("12 Quai du Port");
+  });
+});
+
+describe("weekdayOf", () => {
+  it("keeps the weekday of a French date label", () => {
+    expect(weekdayOf("Dimanche 22 novembre")).toBe("Dimanche");
   });
 });
 

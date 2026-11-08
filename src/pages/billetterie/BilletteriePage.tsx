@@ -48,6 +48,7 @@ export function BilletteriePage() {
                   errors={form.errors}
                   maxCovers={form.maxCovers}
                   seatsLeft={seatsLeft}
+                  totalCents={form.totalCents}
                   onFullNameChange={form.setFullName}
                   onEmailChange={form.setEmail}
                   onCoversChange={form.setCovers}
