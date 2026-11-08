@@ -72,10 +72,10 @@ describe("renderConfirmationEmail", () => {
     const { html } = renderConfirmationEmail(CONFIRMATION);
 
     expect(html).toContain("DIMANCHE 22 NOVEMBRE.");
-    expect(html).toContain("12H00. SILK, MARSEILLE.");
+    expect(html).toContain("12H. SILK, MARSEILLE.");
     expect(html).toContain(EVENT.venue.address);
     expect(html).toContain("2 (1 VG)");
-    expect(html).toContain("90€");
+    expect(html).toContain("90\u00a0€");
     expect(html).toContain(
       "Ton billet t'attend en un clic, garde-le sur ton téléphone.",
     );

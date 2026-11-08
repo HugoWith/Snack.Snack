@@ -1,4 +1,4 @@
-import { formatSeatsLeft } from "../../lib/format";
+import { seatsLeftCopy } from "../../lib/format";
 
 interface SeatCounterProps {
   left: number;
@@ -7,6 +7,7 @@ interface SeatCounterProps {
 
 export function SeatCounter({ left, capacity }: SeatCounterProps) {
   const taken = capacity - left;
+  const copy = seatsLeftCopy(left, capacity);
 
   return (
     <div className="mb-8 flex flex-col items-center gap-2.5">
@@ -20,8 +21,8 @@ export function SeatCounter({ left, capacity }: SeatCounterProps) {
       </div>
       {left > 0 && (
         <p className="text-xs font-black text-label uppercase">
-          Encore <span className="text-mustard">{formatSeatsLeft(left)}</span>{" "}
-          {left > 1 ? "places" : "place"} sur {capacity}
+          {copy.lead} <span className="text-mustard">{copy.count}</span>{" "}
+          {copy.tail}
         </p>
       )}
     </div>

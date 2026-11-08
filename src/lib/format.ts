@@ -1,6 +1,6 @@
 export const padTwo = (n: number): string => String(n).padStart(2, "0");
 
-export const formatEuros = (cents: number): string => `${cents / 100}€`;
+export const formatEuros = (cents: number): string => `${cents / 100}\u00a0€`;
 
 export const formatTicketNo = (n: number): string => `Nº${padTwo(n)}`;
 
@@ -8,6 +8,22 @@ export const ticketFileName = (ticketNo: number): string =>
   `snack-snack-billet-${padTwo(ticketNo)}.png`;
 
 export const formatSeatsLeft = (n: number): string => padTwo(n);
+
+export type SeatsLeftCopy = { lead: string; count: string; tail: string };
+
+export const seatsLeftCopy = (
+  left: number,
+  capacity: number,
+): SeatsLeftCopy => {
+  const places = left > 1 ? "places" : "place";
+  if (left >= capacity)
+    return {
+      lead: "Encore",
+      count: formatSeatsLeft(left),
+      tail: `${places} sur ${capacity}`,
+    };
+  return { lead: "Plus que", count: formatSeatsLeft(left), tail: places };
+};
 
 export const formatCovers = (covers: number, vg: number): string =>
   vg > 0 ? `${covers} (${vg} VG)` : String(covers);

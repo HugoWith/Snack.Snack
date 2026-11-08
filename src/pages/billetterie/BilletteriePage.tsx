@@ -33,7 +33,7 @@ export function BilletteriePage() {
             className={`flex flex-1 flex-col lg:grid lg:grid-cols-[minmax(0,1fr)_400px] lg:items-start lg:gap-x-20 ${DESKTOP_CONTAINER}`}
           >
             {counter && (
-              <div className="px-7 lg:col-start-1 lg:row-start-1 lg:px-0">
+              <div className="px-7 lg:col-span-2 lg:row-start-1 lg:px-0">
                 <SeatCounter left={counter.left} capacity={counter.capacity} />
               </div>
             )}
@@ -67,6 +67,10 @@ export function BilletteriePage() {
         <div
           className={`flex flex-col items-center gap-6 px-6 pt-12 pb-10 text-center lg:gap-8 lg:pt-16 lg:pb-16 ${DESKTOP_CONTAINER}`}
         >
+          <p className="text-[13px] font-black text-label uppercase lg:text-sm">
+            Et dès {EVENT.afterTime}, after-déjeuner gratuit et ouvert à
+            toustes.
+          </p>
           <img
             src="/img/snack-snack-logo-sm.png"
             alt="Snack Snack"

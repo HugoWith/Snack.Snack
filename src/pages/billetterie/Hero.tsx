@@ -8,11 +8,16 @@ export function Hero() {
       <p className="text-center text-[13px] font-black text-label uppercase lg:text-sm">
         Déjeuner et after-déjeuner
       </p>
-      <p className="font-display text-[clamp(26px,7.2vw,34px)] leading-none tracking-[-0.035em] text-mustard uppercase lg:mx-auto lg:w-full lg:max-w-[1100px] lg:px-12 lg:text-7xl">
-        {EVENT.dateLabel}.
-        <br />
-        {EVENT.lunchTime}. {formatEuros(EVENT.priceCents)} le couvert.
-      </p>
+      <div className="flex flex-col gap-3 lg:mx-auto lg:w-full lg:max-w-[1100px] lg:gap-5 lg:px-12">
+        <p className="font-display text-[clamp(26px,7.2vw,34px)] leading-none tracking-[-0.035em] text-mustard uppercase lg:text-7xl">
+          {EVENT.dateLabel}.
+          <br />
+          {EVENT.lunchTime}. {formatEuros(EVENT.priceCents)} le couvert.
+        </p>
+        <p className="text-[13px] font-black text-label uppercase lg:text-lg">
+          Chez {EVENT.venue.name}, {EVENT.venue.city}
+        </p>
+      </div>
     </header>
   );
 }

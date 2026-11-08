@@ -8,7 +8,7 @@ export const EVENT = {
   },
   dateISO: "2026-11-22T12:00:00+01:00",
   dateLabel: "Dimanche 22 novembre",
-  lunchTime: "12h00",
+  lunchTime: "12h",
   afterTime: "15h30",
   tableNo: 1,
   priceCents: 4500,
