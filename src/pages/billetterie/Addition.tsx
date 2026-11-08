@@ -1,6 +1,8 @@
 import { EVENT } from "../../event";
 import { formatEuros } from "../../lib/format";
 import { FieldError } from "./FieldError";
+import { PayButton } from "./PayButton";
+import { TickingAmount } from "./TickingAmount";
 
 interface AdditionProps {
   totalCents: number;
@@ -28,12 +30,10 @@ export function Addition({
         <h2 className="font-display text-[26px] tracking-[-0.035em] uppercase lg:text-[32px]">
           L'addition.
         </h2>
-        <output
-          aria-live="polite"
+        <TickingAmount
+          value={formatEuros(totalCents)}
           className="font-display text-5xl leading-[0.85] tracking-[-0.06em] lg:text-7xl"
-        >
-          {formatEuros(totalCents)}
-        </output>
+        />
       </div>
       <div className="flex flex-col gap-2">
         <label className="flex min-h-11 cursor-pointer items-center">
@@ -61,13 +61,7 @@ export function Addition({
         />
       </div>
       <div className="flex flex-col gap-3">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="min-h-[60px] cursor-pointer bg-ink font-display text-[22px] tracking-[-0.035em] text-mustard uppercase transition-colors hover:bg-steel-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink active:bg-steel-800 disabled:cursor-wait disabled:bg-ink"
-        >
-          {isSubmitting ? "Paiement…" : "Payer"}
-        </button>
+        <PayButton isSubmitting={isSubmitting} />
         <div role="alert">
           <FieldError id="submit-error" message={submitError} tone="ink" />
         </div>

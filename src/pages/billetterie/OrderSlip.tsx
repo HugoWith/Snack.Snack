@@ -41,7 +41,7 @@ export function OrderSlip({
           aria-describedby="fullName-error"
           onChange={(event) => onFullNameChange(event.target.value)}
           onBlur={() => onBlur("fullName")}
-          className={`${INPUT_CLASSES} py-2 font-display text-[22px] tracking-[-0.03em] uppercase`}
+          className={`${INPUT_CLASSES} py-2 font-display text-[22px] tracking-[-0.03em] uppercase placeholder:font-text placeholder:text-lg placeholder:tracking-normal placeholder:normal-case`}
         />
         <FieldError id="fullName-error" message={errors.fullName} />
       </label>
@@ -67,7 +67,7 @@ export function OrderSlip({
       <div className="flex flex-col gap-2">
         <div className="grid grid-cols-2 gap-4">
           <Stepper
-            label="Covers:"
+            label="Couverts:"
             value={values.covers}
             min={1}
             max={maxCovers}
@@ -77,12 +77,12 @@ export function OrderSlip({
             onChange={onCoversChange}
           />
           <Stepper
-            label="Dont VG:"
+            label="Dont végé:"
             value={values.vg}
             min={0}
             max={values.covers}
-            decrementLabel="Retirer un couvert VG"
-            incrementLabel="Ajouter un couvert VG"
+            decrementLabel="Retirer un couvert végé"
+            incrementLabel="Ajouter un couvert végé"
             onChange={onVgChange}
           />
         </div>

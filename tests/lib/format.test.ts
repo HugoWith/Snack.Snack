@@ -5,14 +5,15 @@ import {
   formatEuros,
   formatSeatsLeft,
   formatTicketDate,
+  seatsLeftCopy,
   formatTicketNo,
   ticketFileName,
 } from "../../src/lib/format";
 
 describe("formatEuros", () => {
-  it("formats cents as whole euros", () => {
-    expect(formatEuros(9000)).toBe("90€");
-    expect(formatEuros(4500)).toBe("45€");
+  it("formats cents as whole euros with a non-breaking space", () => {
+    expect(formatEuros(9000)).toBe("90\u00a0€");
+    expect(formatEuros(4500)).toBe("45\u00a0€");
   });
 });
 
@@ -33,6 +34,37 @@ describe("formatSeatsLeft", () => {
   it("pads the seat count to two digits", () => {
     expect(formatSeatsLeft(7)).toBe("07");
     expect(formatSeatsLeft(20)).toBe("20");
+  });
+});
+
+describe("seatsLeftCopy", () => {
+  it("says how many seats remain out of the capacity while none is taken", () => {
+    expect(seatsLeftCopy(20, 20)).toEqual({
+      lead: "Encore",
+      count: "20",
+      tail: "places sur 20",
+    });
+  });
+
+  it("switches to « plus que » once a seat is taken", () => {
+    expect(seatsLeftCopy(14, 20)).toEqual({
+      lead: "Plus que",
+      count: "14",
+      tail: "places",
+    });
+  });
+
+  it("uses the singular for the last seat", () => {
+    expect(seatsLeftCopy(1, 20)).toEqual({
+      lead: "Plus que",
+      count: "01",
+      tail: "place",
+    });
+    expect(seatsLeftCopy(1, 1)).toEqual({
+      lead: "Encore",
+      count: "01",
+      tail: "place sur 1",
+    });
   });
 });
 
