@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Email — Ton couvert est réservé</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@800&amp;family=Manrope:wght@500;700;800&amp;display=swap">
+<style>
+@font-face{font-family:"Nohemi";src:url(../../public/fonts/Nohemi-ExtraBold.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(../../public/fonts/Satoshi-Bold.woff2) format("woff2");font-weight:400 700;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(../../public/fonts/Satoshi-Black.woff2) format("woff2");font-weight:800 900;font-display:swap}
+body{margin:0;background:#0b0c0b}
+a{color:#ffbd00}a:hover{color:#e0a600}
+.head{background:linear-gradient(180deg, rgba(11,12,11,0.35) 0%, rgba(11,12,11,0) 40%, rgba(11,12,11,0.9) 100%), url(../../public/img/plat-os.jpg) center/cover}
+</style>
+</helmet>
+<div style="width: 600px; height: 1420px; position: relative; overflow: hidden; background: #0b0c0b; color: #f2f0ec; font-family: 'Satoshi', 'Manrope', system-ui, sans-serif">
+
+  <div style="padding: 20px 40px; font-size: 13px; font-weight: 500; color: #8c8d91; border-bottom: 1px solid #232426">Objet : <span style="color: #f2f0ec; font-weight: 700">Ton couvert est posé. Nº07</span></div>
+
+  <header class="head" style="height: 360px; box-sizing: border-box; padding: 32px 40px; display: flex; flex-direction: column; justify-content: space-between; align-items: center">
+    <div style="font-weight: 900; font-size: 13px; text-transform: uppercase; color: #bab7b7">C'est réservé</div>
+    <img src="../../public/img/snack-snack-logo-sm.png" alt="Snack Snack" style="width: 180px; height: auto; display: block">
+  </header>
+
+  <div style="padding: 72px 56px 0; display: flex; flex-direction: column; gap: 56px">
+    <h1 style="margin: 0; font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 34px; line-height: 1; letter-spacing: -0.055em; text-transform: uppercase; color: #ffbd00">Merci Camille.<br>Dimanche 22 novembre.<br>12h00. Silk, Marseille.</h1>
+    <p style="margin: -32px 0 0; font-size: 16px; font-weight: 700; color: #f2f0ec">54 Rue Vacon, 13001 Marseille</p>
+
+    <div style="background: #e9e4da; color: #5e5560; padding: 24px 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+      <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Nº:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.05em; color: #1d1b22">07</span></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Covers:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.05em; color: #1d1b22">2 (1 VG)</span></div>
+      <div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase">Payé:</span><span style="font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.05em; color: #1d1b22">90€</span></div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 18px; font-size: 16px; line-height: 1.5; font-weight: 500; color: #bab7b7">
+      <p style="margin: 0">Ton billet est en pièce jointe. Garde-le sur ton téléphone, on le regarde à l'arrivée.</p>
+      <p style="margin: 0">Une allergie, une remarque ? Réponds simplement à ce mail.</p>
+      <p style="margin: 0">Après le déjeuner, on pousse les tables. L'after commence à 15h30, gratuit et ouvert à toustes.</p>
+    </div>
+
+    <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 60px; background: #ffbd00; color: #000000; text-decoration: none; font-family: 'Nohemi', 'Inter Tight', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.05em; text-transform: uppercase">Voir mon billet</a>
+  </div>
+
+  <footer style="position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 56px; text-align: center; font-weight: 900; font-size: 13px; text-transform: uppercase; color: #bab7b7">Bisou bisou</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":600,"height":1420}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

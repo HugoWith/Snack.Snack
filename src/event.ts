@@ -1,0 +1,20 @@
+export const EVENT = {
+  name: "Snack Snack — Édition #1",
+  edition: 1,
+  venue: {
+    name: "Silk",
+    address: "54 Rue Vacon, 13001 Marseille",
+    city: "Marseille",
+  },
+  dateISO: "2026-11-22T12:00:00+01:00",
+  dateLabel: "Dimanche 22 novembre",
+  lunchTime: "12h00",
+  afterTime: "15h30",
+  tableNo: 1,
+  priceCents: 4500,
+  initialCapacity: 20,
+  maxPerEmail: 2,
+  holdMinutes: 30,
+  terms: "Pas de remboursement, billet cessible.",
+  contactEmail: "snack.snack.kitchen@gmail.com",
+} as const;
