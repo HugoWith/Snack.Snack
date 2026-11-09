@@ -15,6 +15,7 @@ export interface Reservation {
   needs_refund: boolean;
   source: string;
   payment_method: string | null;
+  allergies: string | null;
   amount_cents: number;
   paid_at: Date | null;
   cancelled_at: Date | null;
@@ -33,11 +34,15 @@ export const resetDb = async (): Promise<void> => {
   await sql`update settings set capacity = ${EVENT.initialCapacity}`;
 };
 
-export const holdSeats = async (email: string, covers = 1): Promise<string> => {
+export const holdSeats = async (
+  email: string,
+  covers = 1,
+  allergies: string | null = null,
+): Promise<string> => {
   const [row] = await sql<{ id: string }[]>`
     select hold_seats(
       'Camille Durand', ${email}, ${covers}, 0,
-      ${EVENT.priceCents}, ${EVENT.maxPerEmail}, ${EVENT.holdMinutes}
+      ${EVENT.priceCents}, ${EVENT.maxPerEmail}, ${EVENT.holdMinutes}, ${allergies}
     ) as id`;
   return row.id;
 };

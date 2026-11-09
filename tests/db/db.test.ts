@@ -12,6 +12,7 @@ const hold = (email: string, covers = 1): Promise<string> =>
     covers,
     vg: 0,
     priceCents: EVENT.priceCents,
+    allergies: null,
   });
 
 const isSeatError =
