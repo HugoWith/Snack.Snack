@@ -17,6 +17,7 @@ const row = (overrides: Partial<AdminRow>): AdminRow => ({
   email: "camille@mail.fr",
   covers: 2,
   vg: 1,
+  allergies: null,
   status: "paid",
   source: "online",
   paymentMethod: "sumup",

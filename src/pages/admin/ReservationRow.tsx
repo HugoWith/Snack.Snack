@@ -30,7 +30,14 @@ export function ReservationRow({
       <td className="px-3 py-3 font-black whitespace-nowrap">
         {row.ticketNo === null ? "—" : formatTicketNo(row.ticketNo)}
       </td>
-      <td className="min-w-36 px-3 py-3 font-bold">{row.fullName}</td>
+      <td className="min-w-36 px-3 py-3 font-bold">
+        {row.fullName}
+        {row.allergies && (
+          <span className="block text-xs font-medium text-steel-400">
+            {row.allergies}
+          </span>
+        )}
+      </td>
       <td className="px-3 py-3 font-medium whitespace-nowrap">
         {row.email ?? "—"}
       </td>
