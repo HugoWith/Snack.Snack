@@ -321,6 +321,7 @@ describe("GET /api/admin/reservations", () => {
         email: "camille@mail.fr",
         covers: 2,
         vg: 1,
+        allergies: null,
         status: "paid",
         source: "online",
         paymentMethod: "sumup",
@@ -329,6 +330,18 @@ describe("GET /api/admin/reservations", () => {
         createdAt: "2026-11-07T12:00:00.000Z",
       },
     ]);
+  });
+
+  it("shows the declared allergies to the organisers", async () => {
+    const { app } = setup([buildReservation({ allergies: "Arachides" })]);
+
+    const res = await app.request("/api/admin/reservations", {
+      headers: ADMIN_HEADERS,
+    });
+
+    expect((await res.json()).rows[0]).toMatchObject({
+      allergies: "Arachides",
+    });
   });
 
   it("tells the page whether email is enabled", async () => {

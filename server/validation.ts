@@ -12,7 +12,7 @@ export const parseCheckoutBody = (
   if (typeof body !== "object" || body === null || Array.isArray(body))
     return INVALID;
 
-  const { fullName, email, covers, vg, acceptTerms } = body as Record<
+  const { fullName, email, covers, vg, acceptTerms, allergies } = body as Record<
     string,
     unknown
   >;
@@ -24,11 +24,19 @@ export const parseCheckoutBody = (
     acceptTerms !== true
   )
     return INVALID;
+  // Like the admin email: absent or null means not declared.
+  if (
+    allergies !== undefined &&
+    allergies !== null &&
+    typeof allergies !== "string"
+  )
+    return INVALID;
   if (covers < 1 || vg < 0 || vg > covers) return INVALID;
 
   const value: OrderInput = {
     fullName: fullName.trim(),
     email: email.trim().toLowerCase(),
+    allergies: (allergies ?? "").trim(),
     covers,
     vg,
     acceptTerms,

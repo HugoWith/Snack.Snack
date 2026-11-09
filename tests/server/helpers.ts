@@ -18,6 +18,7 @@ export const buildReservation = (
   vg: 1,
   amount_cents: 9000,
   status: "held",
+  allergies: null,
   hold_expires_at: new Date("2026-11-07T12:30:00Z"),
   sumup_checkout_id: CHECKOUT_ID,
   ticket_no: null,

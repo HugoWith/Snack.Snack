@@ -43,12 +43,20 @@ export const createApp = (deps: Deps): Hono => {
   app.post("/api/checkout", async (c) => {
     const parsed = parseCheckoutBody(await c.req.json().catch(() => null));
     if (!parsed.ok) return c.json({ error: "INVALID" }, 400);
-    const { fullName, email, covers, vg } = parsed.value;
+    const { fullName, email, allergies, covers, vg } = parsed.value;
     const { siteUrl, priceCents } = deps.env;
 
     let id: string;
     try {
-      id = await deps.db.holdSeats({ fullName, email, covers, vg, priceCents });
+      // null in base means nothing was declared.
+      id = await deps.db.holdSeats({
+        fullName,
+        email,
+        allergies: allergies === "" ? null : allergies,
+        covers,
+        vg,
+        priceCents,
+      });
     } catch (error) {
       if (
         error instanceof SeatError &&
@@ -259,6 +267,7 @@ const toAdminRow = (row: Reservation): AdminRow => ({
   email: row.email,
   covers: row.covers,
   vg: row.vg,
+  allergies: row.allergies,
   status: row.status,
   source: row.source,
   paymentMethod: row.payment_method,

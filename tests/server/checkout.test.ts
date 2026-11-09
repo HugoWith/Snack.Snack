@@ -47,6 +47,7 @@ describe("POST /api/checkout", () => {
     expect(db.holdSeats).toHaveBeenCalledWith({
       fullName: "Camille Durand",
       email: "camille@mail.fr",
+      allergies: null,
       covers: 2,
       vg: 1,
       priceCents: 4500,
@@ -88,6 +89,55 @@ describe("POST /api/checkout", () => {
     expect(db.holdSeats).toHaveBeenCalledWith(
       expect.objectContaining({ priceCents: 100 }),
     );
+  });
+
+  it("passes the declared allergies to hold_seats", async () => {
+    const db = createFakeDb();
+    const app = createApp(createDeps({ db }));
+
+    await postCheckout(app, { ...VALID_BODY, allergies: "  Arachides, gluten " });
+
+    expect(db.holdSeats).toHaveBeenCalledWith(
+      expect.objectContaining({ allergies: "Arachides, gluten" }),
+    );
+  });
+
+  it.each([
+    ["absent", undefined],
+    ["empty", ""],
+  ])("stores null when allergies are %s", async (_label, allergies) => {
+    const db = createFakeDb();
+    const app = createApp(createDeps({ db }));
+
+    const res = await postCheckout(app, { ...VALID_BODY, allergies });
+
+    expect(res.status).toBe(200);
+    expect(db.holdSeats).toHaveBeenCalledWith(
+      expect.objectContaining({ allergies: null }),
+    );
+  });
+
+  it("refuses allergies longer than 200 characters", async () => {
+    const db = createFakeDb();
+    const app = createApp(createDeps({ db }));
+
+    const res = await postCheckout(app, {
+      ...VALID_BODY,
+      allergies: "a".repeat(201),
+    });
+
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: "INVALID" });
+    expect(db.holdSeats).not.toHaveBeenCalled();
+  });
+
+  it("refuses allergies that are not a string", async () => {
+    const app = createApp(createDeps({ db: createFakeDb() }));
+
+    const res = await postCheckout(app, { ...VALID_BODY, allergies: 42 });
+
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: "INVALID" });
   });
 
   it("refuses an order whose terms are not accepted", async () => {
@@ -162,17 +212,29 @@ describe("POST /api/checkout", () => {
 });
 
 describe("parseCheckoutBody", () => {
-  it("trims the name and email and lowercases the email", () => {
-    expect(parseCheckoutBody(VALID_BODY)).toEqual({
+  it("trims the name, email and allergies and lowercases the email", () => {
+    expect(
+      parseCheckoutBody({ ...VALID_BODY, allergies: "  Arachides " }),
+    ).toEqual({
       ok: true,
       value: {
         fullName: "Camille Durand",
         email: "camille@mail.fr",
+        allergies: "Arachides",
         covers: 2,
         vg: 1,
         acceptTerms: true,
       },
     });
+  });
+
+  it("defaults absent or null allergies to an empty string", () => {
+    for (const allergies of [undefined, null]) {
+      expect(parseCheckoutBody({ ...VALID_BODY, allergies })).toEqual({
+        ok: true,
+        value: expect.objectContaining({ allergies: "" }),
+      });
+    }
   });
 
   it.each([
@@ -181,6 +243,8 @@ describe("parseCheckoutBody", () => {
     ["a missing name", { ...VALID_BODY, fullName: undefined }],
     ["a one-letter name", { ...VALID_BODY, fullName: " C " }],
     ["a broken email", { ...VALID_BODY, email: "camille@mail" }],
+    ["allergies as a number", { ...VALID_BODY, allergies: 42 }],
+    ["too long allergies", { ...VALID_BODY, allergies: "a".repeat(201) }],
     ["covers as a string", { ...VALID_BODY, covers: "2" }],
     ["zero covers", { ...VALID_BODY, covers: 0, vg: 0 }],
     ["three covers", { ...VALID_BODY, covers: 3 }],

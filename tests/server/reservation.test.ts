@@ -51,6 +51,18 @@ describe("GET /api/reservation", () => {
     expect(body).not.toHaveProperty("email");
   });
 
+  it("never returns the allergies", async () => {
+    const { read } = setup(
+      buildReservation({ allergies: "Arachides, gluten" }),
+      "PAID",
+    );
+
+    const { body } = await read();
+
+    expect(JSON.stringify(body)).not.toContain("Arachides");
+    expect(body).not.toHaveProperty("allergies");
+  });
+
   it("confirms the payment when SumUp says PAID", async () => {
     const { db, read } = setup(buildReservation(), "PAID");
 
