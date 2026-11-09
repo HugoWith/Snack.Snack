@@ -51,6 +51,7 @@ export function BilletteriePage() {
                   totalCents={form.totalCents}
                   onFullNameChange={form.setFullName}
                   onEmailChange={form.setEmail}
+                  onAllergiesChange={form.setAllergies}
                   onCoversChange={form.setCovers}
                   onVgChange={form.setVg}
                   onBlur={form.touch}

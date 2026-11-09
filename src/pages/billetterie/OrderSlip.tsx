@@ -16,9 +16,10 @@ interface OrderSlipProps {
   totalCents: number;
   onFullNameChange: (value: string) => void;
   onEmailChange: (value: string) => void;
+  onAllergiesChange: (value: string) => void;
   onCoversChange: (value: number) => void;
   onVgChange: (value: number) => void;
-  onBlur: (field: "fullName" | "email") => void;
+  onBlur: (field: "fullName" | "email" | "allergies") => void;
 }
 
 export function OrderSlip({
@@ -29,6 +30,7 @@ export function OrderSlip({
   totalCents,
   onFullNameChange,
   onEmailChange,
+  onAllergiesChange,
   onCoversChange,
   onVgChange,
   onBlur,
@@ -79,6 +81,24 @@ export function OrderSlip({
             className={`${INPUT_CLASSES} py-2 font-text text-lg font-bold`}
           />
           <FieldError id="email-error" message={errors.email} />
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className={RECEIPT_LABEL_CLASSES}>
+            Allergies / intolérances (facultatif):
+          </span>
+          <input
+            name="allergies"
+            autoComplete="off"
+            maxLength={200}
+            placeholder="Précise ici ce que tu ne manges pas"
+            value={values.allergies}
+            aria-invalid={Boolean(errors.allergies)}
+            aria-describedby="allergies-error"
+            onChange={(event) => onAllergiesChange(event.target.value)}
+            onBlur={() => onBlur("allergies")}
+            className={`${INPUT_CLASSES} py-2 font-text text-lg font-bold`}
+          />
+          <FieldError id="allergies-error" message={errors.allergies} />
         </label>
         <div className="flex flex-col gap-2">
           <div className="flex flex-col gap-1">

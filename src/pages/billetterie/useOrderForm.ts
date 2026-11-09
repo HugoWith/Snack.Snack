@@ -40,6 +40,7 @@ export const useOrderForm = (seatsLeft: number, onSoldOut: () => void) => {
     ...values,
     fullName: values.fullName.trim(),
     email: values.email.trim(),
+    allergies: values.allergies.trim(),
   };
   const allErrors = validateOrder(order, seatsLeft);
   const errors = pickVisibleErrors(allErrors, touched, hasSubmitted);
@@ -52,6 +53,9 @@ export const useOrderForm = (seatsLeft: number, onSoldOut: () => void) => {
 
   const setEmail = (email: string): void =>
     setDraft((current) => ({ ...current, email }));
+
+  const setAllergies = (allergies: string): void =>
+    setDraft((current) => ({ ...current, allergies }));
 
   const setCovers = (value: number): void => {
     const nextCovers = clampCovers(value, seatsLeft);
@@ -112,6 +116,7 @@ export const useOrderForm = (seatsLeft: number, onSoldOut: () => void) => {
     touch,
     setFullName,
     setEmail,
+    setAllergies,
     setCovers,
     setVg,
     setAcceptTerms,
@@ -140,6 +145,7 @@ export const checkoutErrorMessage = (error: CheckoutError): string => {
 const INITIAL_ORDER: OrderInput = {
   fullName: "",
   email: "",
+  allergies: "",
   covers: 1,
   vg: 0,
   acceptTerms: false,
@@ -148,6 +154,7 @@ const INITIAL_ORDER: OrderInput = {
 const FIELD_INPUT_NAMES: Record<Field, string> = {
   fullName: "fullName",
   email: "email",
+  allergies: "allergies",
   covers: "covers",
   terms: "acceptTerms",
 };
