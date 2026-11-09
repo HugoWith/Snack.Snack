@@ -3,6 +3,7 @@ import {
   ORDER_COPY,
   clampCovers,
   clampVg,
+  isValidAllergies,
   isValidFullName,
   orderTotalCents,
   validateOrder,
@@ -12,6 +13,7 @@ import {
 const validOrder: OrderInput = {
   fullName: "Camille Durand",
   email: "camille@mail.fr",
+  allergies: "",
   covers: 2,
   vg: 1,
   acceptTerms: true,
@@ -53,6 +55,35 @@ describe("validateOrder", () => {
   it("rejects unaccepted terms", () => {
     const errors = validateOrder({ ...validOrder, acceptTerms: false }, 7);
     expect(errors.terms).toBe(ORDER_COPY.terms);
+  });
+
+  it("accepts empty allergies: declaring none is valid", () => {
+    expect(validateOrder(validOrder, 7)).toEqual({});
+  });
+
+  it("accepts 200 code points of allergies", () => {
+    expect(validateOrder({ ...validOrder, allergies: "a".repeat(200) }, 7))
+      .toEqual({});
+  });
+
+  it("rejects allergies longer than 200 characters", () => {
+    const errors = validateOrder(
+      { ...validOrder, allergies: "a".repeat(201) },
+      7,
+    );
+    expect(errors.allergies).toBe(ORDER_COPY.allergies);
+  });
+});
+
+describe("isValidAllergies", () => {
+  it("accepts the empty string and trailing spaces", () => {
+    expect(isValidAllergies("")).toBe(true);
+    expect(isValidAllergies("   ")).toBe(true);
+  });
+
+  it("counts emoji as one character, like Postgres char_length", () => {
+    expect(isValidAllergies("😀".repeat(200))).toBe(true);
+    expect(isValidAllergies("😀".repeat(201))).toBe(false);
   });
 
   it("reports the remaining seats when covers exceed them", () => {

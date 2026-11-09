@@ -4,6 +4,7 @@ import { createCheckout, getReservation } from "../../src/lib/api";
 const ORDER = {
   fullName: "Camille Durand",
   email: "camille@mail.fr",
+  allergies: "",
   covers: 2,
   vg: 1,
   acceptTerms: true,

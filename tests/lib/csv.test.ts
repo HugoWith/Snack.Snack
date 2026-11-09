@@ -9,6 +9,7 @@ const ROW: AdminRow = {
   email: "camille@mail.fr",
   covers: 2,
   vg: 1,
+  allergies: "Arachides, gluten",
   status: "paid",
   source: "online",
   paymentMethod: "sumup",
@@ -26,13 +27,13 @@ describe("toCsv", () => {
 
   it("writes the exact French header", () => {
     expect(lines(toCsv([]))[0]).toBe(
-      "Nº;Nom;Email;Couverts;Dont VG;Statut;Source;Paiement;À rembourser;Payé le",
+      "Nº;Nom;Email;Couverts;Dont VG;Allergies;Statut;Source;Paiement;À rembourser;Payé le",
     );
   });
 
   it("writes one line per row with French labels and Paris time", () => {
     expect(lines(toCsv([ROW]))[1]).toBe(
-      "7;Camille Durand;camille@mail.fr;2;1;Payé;En ligne;SumUp;non;07/11/2026 13:05",
+      "7;Camille Durand;camille@mail.fr;2;1;Arachides, gluten;Payé;En ligne;SumUp;non;07/11/2026 13:05",
     );
   });
 
@@ -41,6 +42,7 @@ describe("toCsv", () => {
       ...ROW,
       ticketNo: null,
       email: null,
+      allergies: null,
       status: "cancelled",
       source: "manual",
       paymentMethod: "offert",
@@ -48,7 +50,7 @@ describe("toCsv", () => {
     };
 
     expect(lines(toCsv([row]))[1]).toBe(
-      ";Camille Durand;;2;1;Annulé;Manuel;Offert;non;",
+      ";Camille Durand;;2;1;;Annulé;Manuel;Offert;non;",
     );
   });
 

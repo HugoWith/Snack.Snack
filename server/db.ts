@@ -33,6 +33,7 @@ export type Reservation = {
   needs_refund: boolean;
   source: "online" | "manual";
   payment_method: PaymentMethod | null;
+  allergies: string | null;
   email_sent_at: Date | null;
   created_at: Date;
   paid_at: Date | null;
@@ -48,6 +49,7 @@ export type Confirmation = {
 export type HoldInput = {
   fullName: string;
   email: string;
+  allergies: string | null;
   covers: number;
   vg: number;
   priceCents: number;
@@ -104,12 +106,13 @@ export const createDb = (url: string): Db => {
       return { left: row.capacity - row.taken, capacity: row.capacity };
     },
 
-    holdSeats: ({ fullName, email, covers, vg, priceCents }) =>
+    holdSeats: ({ fullName, email, allergies, covers, vg, priceCents }) =>
       withSeatErrors(async () => {
         const [row] = await sql<{ id: string }[]>`
           select hold_seats(
             ${fullName}, ${email}, ${covers}, ${vg},
-            ${priceCents}, ${EVENT.maxPerEmail}, ${EVENT.holdMinutes}
+            ${priceCents}, ${EVENT.maxPerEmail}, ${EVENT.holdMinutes},
+            ${allergies}
           ) as id`;
         return row.id;
       }),

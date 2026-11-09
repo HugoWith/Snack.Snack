@@ -10,6 +10,7 @@ export type AdminRow = {
   email: string | null;
   covers: number;
   vg: number;
+  allergies: string | null;
   status: ReservationStatus;
   source: "online" | "manual";
   paymentMethod: PaymentMethod | null;

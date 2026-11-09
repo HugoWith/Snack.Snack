@@ -54,6 +54,26 @@ describe("hold_seats", () => {
     });
   });
 
+  it("stores the declared allergies, null when none", async () => {
+    const declared = await holdSeats("a@mail.fr", 1, "Arachides, gluten");
+    const silent = await holdSeats("b@mail.fr", 1);
+
+    expect((await getReservation(declared)).allergies).toBe(
+      "Arachides, gluten",
+    );
+    expect((await getReservation(silent)).allergies).toBeNull();
+  });
+
+  it("refuses allergies longer than 200 characters", async () => {
+    await expect(
+      sql`select hold_seats(
+        'Camille Durand', 'a@mail.fr', 1, 0,
+        ${EVENT.priceCents}, ${EVENT.maxPerEmail}, ${EVENT.holdMinutes},
+        ${"a".repeat(201)}
+      )`,
+    ).rejects.toMatchObject({ code: "23514" });
+  });
+
   it("expired hold frees seats", async () => {
     const id = await holdSeats("camille@mail.fr", 2);
     expect(await seatsTaken()).toBe(2);
@@ -430,5 +450,15 @@ describe("privileges", () => {
 
     expect(rows).toHaveLength(18);
     expect(rows.filter((r) => r.allowed)).toEqual([]);
+  });
+
+  it("keeps a single hold_seats signature, with the allergies parameter", async () => {
+    const rows = await sql<{ pronargs: number }[]>`
+      select pronargs from pg_proc p
+      where p.pronamespace = 'public'::regnamespace
+        and p.proname = 'hold_seats'`;
+
+    expect(rows).toHaveLength(1);
+    expect(rows[0].pronargs).toBe(8);
   });
 });
