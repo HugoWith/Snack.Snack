@@ -31,7 +31,7 @@ export const ORDER_COPY = {
 export const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const FULL_NAME_MIN_LENGTH = 2;
 const FULL_NAME_MAX_LENGTH = 120;
-const ALLERGIES_MAX_LENGTH = 200;
+export const ALLERGIES_MAX_LENGTH = 200;
 
 // Counts code points, like Postgres char_length: an emoji is one, not two.
 export const isValidFullName = (fullName: string): boolean => {

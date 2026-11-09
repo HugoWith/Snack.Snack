@@ -3,7 +3,12 @@ import { RECEIPT_LABEL_CLASSES } from "../../components/receipt/receipt-classes"
 import { ReceiptHeader } from "../../components/receipt/ReceiptHeader";
 import { EVENT } from "../../event";
 import { formatTableLine, streetOf } from "../../lib/format";
-import { ORDER_COPY, type OrderErrors, type OrderInput } from "../../lib/order";
+import {
+  ALLERGIES_MAX_LENGTH,
+  ORDER_COPY,
+  type OrderErrors,
+  type OrderInput,
+} from "../../lib/order";
 import { FieldError } from "./FieldError";
 import { ReceiptTotal } from "./ReceiptTotal";
 import { Stepper } from "./Stepper";
@@ -89,7 +94,7 @@ export function OrderSlip({
           <input
             name="allergies"
             autoComplete="off"
-            maxLength={200}
+            maxLength={ALLERGIES_MAX_LENGTH}
             placeholder="Précise ici ce que tu ne manges pas"
             value={values.allergies}
             aria-invalid={Boolean(errors.allergies)}
